@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cloudant-pod103a
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: cloudant-pod103a
+      labels:
+        run: cloudant-demo103a
+    spec:
+      containers:
+        - name: cloudant-sample
+#MJC repl w/ below          image: "registry.ng.bluemix.net/<namespace>/cloudant"
+          image: "registry.ng.bluemix.net/curtinmjc_rates/cloudant:1.0.3"
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /opt/service-bind
+              name: service-bind-volume
+      volumes:
+        - name: service-bind-volume
+          secret:
+            defaultMode: 420
+#MJC repl w/ below            secretName: binding-cloudant
+            secretName: binding-cloudant-mike
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudant-service103a
+  labels:
+    run: cloudant-demo103a
+spec:
+  #MJC added below "type: NodePort" per instructions in Ramakrishna Boggarapu's Apr 10 em (Re: Need help w/ Rama's hello-world-armada/Stage3/cloudant example for Hertz Rates project)
+  type: NodePort
+  selector:
+    run: cloudant-demo103a
+  ports:
+   - protocol: TCP
+     port: 3000
+     #MJC added below "nodePort: 3080" per instructions in Ramakrishna Boggarapu's Apr 10 em (Re: Need help w/ Rama's hello-world-armada/Stage3/cloudant example for Hertz Rates project)
+     nodePort: 30080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: myingress103a
+spec:
+  rules:
+#MJC repl w/ below  - host: <host>.us-south.containers.mybluemix.net
+  - host: mike-lab1-958971.us-south.containers.mybluemix.net
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: cloudant-service103a
+          servicePort: 3000
