@@ -1,4 +1,4 @@
-FROM node:6.9.2
+FROM registry.ng.bluemix.net/curtinmjc_rates/node:6.9.2
 
 # MJC correct below line because Dockerfile in same dir as package.json
 # COPY nodejs-cloudant/package.json .
