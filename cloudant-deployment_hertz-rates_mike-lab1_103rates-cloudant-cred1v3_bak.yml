@@ -1,0 +1,71 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cloudant-pod103rates-cloudant-cred1v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: cloudant-pod103rates-cloudant-cred1v2
+      labels:
+        run: cloudant-demo103rates-cloudant-cred1v2
+    spec:
+      containers:
+        - name: cloudant-sample
+#MJC repl w/ below          image: "registry.ng.bluemix.net/<namespace>/cloudant"
+          image: "registry.ng.bluemix.net/curtinmjc_rates/cloudant:1.0.3"
+#2017.04.20 added below ports: and - containerPort:3000
+#          ports:
+#            - containerPort: 3000
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /opt/service-bind
+              name: service-bind-volume
+      volumes:
+        - name: service-bind-volume
+          secret:
+            defaultMode: 420
+#MJC repl w/ below            secretName: binding-cloudant
+#MJC 2017.04.12 change to binding-rates-cloudant-cred1 which provides access to Rates-cloudant-cred1 Cloudant
+            secretName: binding-rates-cloudant-cred1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudant-service103rates-cloudant-cred1v2
+  labels:
+    run: cloudant-demo103rates-cloudant-cred1v2
+spec:
+  #MJC added below "type: NodePort" per instructions in Ramakrishna Boggarapu's Apr 10 em (Re: Need help w/ Rama's hello-world-armada/Stage3/cloudant example for Hertz Rates project)
+  type: LoadBalancer
+  selector:
+    run: cloudant-demo103rates-cloudant-cred1v2
+  ports:
+   - protocol: TCP
+     port: 3000
+     #MJC added below "nodePort: 30080" per instructions in Ramakrishna Boggarapu's Apr 10 em (Re: Need help w/ Rama's hello-world-armada/Stage3/cloudant example for Hertz Rates project)
+     nodePort: 30082
+#     #MJC 2017.04.19 added below based on viewing rates-poa cluster was-service yaml; specified ip: 169.46.113.134 based on cluster already showed exposed services with ips ending with 131, 132, 133
+     targetPort: 3000
+#status
+#  loadBalancer
+#    Ingress
+#      0
+#        ip: 169.46.113.134
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: myingress103rates-cloudant-cred1v2
+spec:
+  rules:
+#MJC repl w/ below  - host: <host>.us-south.containers.mybluemix.net
+#2017.04.20 removed this line and added below line  - host: mike-lab1-958971.us-south.containers.mybluemix.net
+#2017.05.03 removed this line and added below line  - host: rates-poa1.us-south.containers.mybluemix.net
+  - host: rates-poa-525195.us-south.containers.mybluemix.net
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: cloudant-service103rates-cloudant-cred1v2
+          servicePort: 3000

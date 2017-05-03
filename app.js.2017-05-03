@@ -92,9 +92,7 @@ function initDBConnection() {
 
 initDBConnection();
 
-//MJC 2017.05.03 comment out below line and replace with following line to test different path in rates-poa myingress
-//app.get('/', routes.index);
-app.get('/mike-test', routes.index);
+app.get('/', routes.index);
 
 function createResponseData(id, name, value, attachments) {
 
