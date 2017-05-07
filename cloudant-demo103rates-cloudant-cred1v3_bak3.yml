@@ -6,8 +6,6 @@ spec:
   replicas: 3
   template:
     metadata:
-###MJC 2017.05.07 added below "name" line
-      name: cloudant-demo103rates-cloudant-cred1v3
       labels:
         run: cloudant-demo103rates-cloudant-cred1v3
     spec:
@@ -16,20 +14,19 @@ spec:
 #MJC repl w/ below          image: "registry.ng.bluemix.net/<namespace>/cloudant"
           image: "registry.ng.bluemix.net/curtinmjc_rates/cloudant:1.0.3"
 #2017.04.20 added below ports: and - containerPort:3000
-###MJC 2017.05.07          ports:
-###MJC 2017.05.07            - containerPort: 3000
-###MJC 2017.05.07 uncommented imagePullPlicy, volumeMounts, volumes
-          imagePullPolicy: Always
-          volumeMounts:
-            - mountPath: /opt/service-bind
-              name: service-bind-volume
-      volumes:
-        - name: service-bind-volume
-          secret:
-            defaultMode: 420
+          ports:
+            - containerPort: 3000
+##          imagePullPolicy: Always
+##          volumeMounts:
+##            - mountPath: /opt/service-bind
+##              name: service-bind-volume
+##      volumes:
+##        - name: service-bind-volume
+##          secret:
+##            defaultMode: 420
 #MJC repl w/ below            secretName: binding-cloudant
 #MJC 2017.04.12 change to binding-rates-cloudant-cred1 which provides access to Rates-cloudant-cred1 Cloudant
-            secretName: binding-rates-cloudant-cred1
+##            secretName: binding-rates-cloudant-cred1
 ---
 apiVersion: v1
 kind: Service
