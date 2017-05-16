@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cloudant-pod103rates-cloudant-cred1v3a
+spec:
+#2017.05.03  replicas: 1
+  replicas: 3
+  template:
+    metadata:
+      name: cloudant-pod103rates-cloudant-cred1v3a
+      labels:
+        run: cloudant-demo103rates-cloudant-cred1v3a
+    spec:
+      containers:
+        - name: cloudant-sample
+          image: "registry.ng.bluemix.net/curtinmjc_rates/cloudant:1.0.3"
+#          ports:
+#            - containerPort: 3000
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /opt/service-bind
+              name: service-bind-volume
+      volumes:
+        - name: service-bind-volume
+          secret:
+            defaultMode: 420
+            secretName: binding-rates-cloudant-cred1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudant-service103rates-cloudant-cred1v3a
+  labels:
+    run: cloudant-demo103rates-cloudant-cred1v3a
+spec:
+  selector:
+    run: cloudant-demo103rates-cloudant-cred1v3a
+  ports:
+   - protocol: TCP
+     port: 3000
+     targetPort: 3000
