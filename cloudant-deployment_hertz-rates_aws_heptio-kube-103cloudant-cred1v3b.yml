@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cloudant-podaws-heptio-kube-cloudant-cred1v3a
+  name: cloudant-podaws-heptio-kube-cloudant-cred1v3b
 spec:
 #2017.05.03  replicas: 1
   replicas: 2
@@ -9,7 +9,7 @@ spec:
     metadata:
 ###2017.05.15      name: cloudant-podaws-heptio-kube-cloudant-cred1v3a
       labels:
-        run: cloudant-demoaws-heptio-kube-cloudant-cred1v3a
+        run: cloudant-demoaws-heptio-kube-cloudant-cred1v3b
     spec:
       containers:
         - name: cloudant-sample
@@ -48,14 +48,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cloudant-serviceaws-heptio-kube-cloudant-cred1v3a
+  name: cloudant-serviceaws-heptio-kube-cloudant-cred1v3b
   labels:
-    run: cloudant-demoaws-heptio-kube-cloudant-cred1v3a
+    run: cloudant-demoaws-heptio-kube-cloudant-cred1v3b
 spec:
   #MJC added below "type: NodePort" per instructions in Ramakrishna Boggarapu's Apr 10 em (Re: Need help w/ Rama's hello-world-armada/Stage3/cloudant example for Hertz Rates project)
 #2017.05.03  type: LoadBalancer
   selector:
-    run: cloudant-demoaws-heptio-kube-cloudant-cred1v3a
+    run: cloudant-demoaws-heptio-kube-cloudant-cred1v3b
   ports:
    - protocol: TCP
      port: 3000
