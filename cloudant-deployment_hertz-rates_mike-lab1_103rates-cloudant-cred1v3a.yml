@@ -1,13 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cloudant-pod103rates-cloudant-cred1v3a
+  name: nodeapp-deployment
 spec:
 #2017.05.03  replicas: 1
   replicas: 3
   template:
     metadata:
-      name: cloudant-pod103rates-cloudant-cred1v3a
+      name: nodeapp-deployment
       labels:
         run: cloudant-demo103rates-cloudant-cred1v3a
     spec:
@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cloudant-service103rates-cloudant-cred1v3a
+  name: nodeapp-service
   labels:
     run: cloudant-demo103rates-cloudant-cred1v3a
 spec:

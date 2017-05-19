@@ -1,13 +1,12 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cloudant-podaws-heptio-kube-cloudant-cred1v3a
+  name: nodeapp-deployment
 spec:
 #2017.05.03  replicas: 1
   replicas: 2
   template:
     metadata:
-###2017.05.15      name: cloudant-podaws-heptio-kube-cloudant-cred1v3a
       labels:
         run: cloudant-demoaws-heptio-kube-cloudant-cred1v3a
     spec:
@@ -48,7 +47,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cloudant-serviceaws-heptio-kube-cloudant-cred1v3a
+  name: nodeapp-service
   labels:
     run: cloudant-demoaws-heptio-kube-cloudant-cred1v3a
 spec:
