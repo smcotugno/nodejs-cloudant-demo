@@ -14,8 +14,6 @@ spec:
         - name: cloudant-sample
           image: "registry.ng.bluemix.net/curtinmjc_rates/cloudant:1.0.3"
           imagePullPolicy: Always
-          ports:
-            - containerPort: 3000
           volumeMounts:
             - mountPath: /opt/service-bind
               name: service-bind-volume
@@ -32,7 +30,7 @@ metadata:
   labels:
     run: nodeapp
 spec:
-  type: LoadBalancer  #2017.05.30
+  type: NodePort  #2017.05.19
   selector:
     run: nodeapp
   ports:

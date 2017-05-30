@@ -6,12 +6,14 @@ spec:
   replicas: 2
   template:
     metadata:
+      name: nodeapp-deployment
       labels:
         run: nodeapp
     spec:
       containers:
         - name: cloudant-sample
           image: 143691129248.dkr.ecr.us-west-2.amazonaws.com/cloudant:1.0.3
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           volumeMounts:
@@ -30,10 +32,10 @@ metadata:
   labels:
     run: nodeapp
 spec:
+  type: LoadBalancer
   selector:
     run: nodeapp
   ports:
    - protocol: TCP
      port: 3000
      targetPort: 3000
-  type: LoadBalancer
