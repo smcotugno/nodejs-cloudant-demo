@@ -72,10 +72,7 @@ function initDBConnection() {
         // Once you have the credentials, paste them into a file called vcap-local.json.
         // Alternately you could point to a local database here instead of a
         // Bluemix service.
-        // url will be in this format: https://username:password@xxxxxxxxx-bluemix.cloudant.com
-        // MJC 2017.04.08 replace following line w/ one below it per instructions in https://github.ibm.com/ramab/hello-world-armada/tree/master/Stage3/cloudant
-        // MJC dbCredentials.url = getDBCredentialsUrl(fs.readFileSync("vcap-local.json", "utf-8"));
-        dbCredentials.url = JSON.parse(fs.readFileSync("/opt/service-bind/binding", "utf-8")).url;  //MJC line added
+        dbCredentials.url = JSON.parse(fs.readFileSync("/opt/service-bind/binding", "utf-8")).url;  
     }
 
     cloudant = require('cloudant')(dbCredentials.url);

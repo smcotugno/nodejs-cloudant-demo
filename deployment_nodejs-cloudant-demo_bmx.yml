@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: nodejs-cloudant-demo
-          image: registry.ng.bluemix.net/devops_demo/nodejs-cloudant-demo:003
+          image: registry.ng.bluemix.net/devops_demo/nodejs-cloudant-demo:version
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
