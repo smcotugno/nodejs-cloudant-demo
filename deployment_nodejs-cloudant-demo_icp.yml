@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: nodejs-cloudant-demo
-          image: mycluster.icp:8500/default/nodejs-cloudant-demo:version
+          image: mycluster.icp:8500/default/node_app_demo:demo
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -30,9 +30,9 @@ kind: Service
 metadata:
   name: nodejs-cloudant-demo-service
 spec:
-  type: LoadBalancer
+#  type: LoadBalancer
   selector:
     run: nodejs-cloudant-demo
   ports:
    - protocol: TCP
-     port: 3000
+     port: 9080
