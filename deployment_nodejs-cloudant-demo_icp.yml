@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nodejs-cloudant-demo-deployment
 spec:
-  replicas: 1
+  replicas: @KUBE_SCRIPT_REPLICA_SET@
   template:
     metadata:
       name: nodejs-cloudant-demo-deployment
@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: nodejs-cloudant-demo
-          image: mycluster.icp:8500/default/node_app_demo:version
+          image: bluedemocluster.icp:8500/default/node_app_demo:version
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
