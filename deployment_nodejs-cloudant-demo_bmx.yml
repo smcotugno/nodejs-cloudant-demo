@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nodejs-cloudant-demo-deployment
 spec:
-  replicas: @KUBE_SCRIPT_REPLICA_SET@
+  replicas: 2
   template:
     metadata:
       name: nodejs-cloudant-demo-deployment
