@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: nodejs-cloudant-demo
-          image: bluedemocluster.icp:8500/default/node_app_demo:version
+          image: bluedemocluster.icp:8500/default/node-app:version
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
